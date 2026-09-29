@@ -1,0 +1,11 @@
+# id,destination,size,deadline,status
+P01,N04,2,09:00,ready
+P02,N08,1,08:45,ready
+P03,N10,2,10:30,ready
+P04,N06,1,09:15,ready
+P05,N02,2,08:30,ready
+P06,LIGHTHOUSE,1,11:00,ready
+P07,N09,3,12:00,ready
+P08,N05,1,09:00,cancelled
+P09,N01,1,13:00,ready
+P10,N07,1,08:10,ready

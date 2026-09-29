@@ -1,0 +1,20 @@
+# Road network for the Riverside delivery zone.
+# from,to,minutes   (every road is two-way)
+DEPOT,N01,5
+DEPOT,N02,9
+N01,N02,3
+N01,N03,7
+N02,N04,6
+N03,N04,2
+N03,N05,8
+N04,N06,4
+N05,N06,3
+N05,N07,6
+N06,N08,7
+N07,N08,2
+N07,N08,10        # old bridge, slower
+N08,N09,5
+N09,N10,4
+N06,N10,12
+DEPOT,N10,30      # ring road
+ISLAND,LIGHTHOUSE,4   # ferry only: not connected to the mainland

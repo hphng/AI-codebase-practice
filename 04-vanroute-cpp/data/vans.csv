@@ -1,0 +1,3 @@
+# id,depot,capacity,shiftStart,shiftEnd
+V1,DEPOT,6,08:00,12:00
+V2,DEPOT,4,08:00,08:45    # half shift
