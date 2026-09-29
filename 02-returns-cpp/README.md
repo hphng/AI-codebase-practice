@@ -4,14 +4,18 @@
 
 ## Scenario
 
-You've joined the team that owns the **Returns Engine**, the service that decides whether a customer's
-return request is approved and how much they get refunded. It's a C++17 library with a small CLI:
+The Returns Engine is the back-office service that decides every customer return request for an online retailer. For each request it answers:
+- Is this item returnable at all?
+- Is the request still inside the return window, including loyalty-tier bonus days?
+- Has the customer already sent these units back?
+- Is this account abusing returns?
+- How much do we refund after restocking fees?
 
-- a hand-written **JSON parser** that reads the policy and data files,
-- a **rule engine** (category, final sale, quantity, return window, abuse velocity, restocking fee),
-- repositories, a service layer that applies decisions and notifies customers, and a report.
+Customer support, finance and the fraud team all depend on its decisions. It runs as a nightly batch over the day's requests, prints a report for finance, and queues a decision email for every customer.
 
-There are two parts:
+It's a C++17 library with a small CLI and no third-party dependencies. Policies (return windows, restocking fees, non-returnable categories, tier bonuses, fee-waived reasons, abuse limits) are configured in JSON. Customers, orders and requests arrive as JSON files too, read by an in-house JSON parser. Money is handled as integer cents and dates as day numbers. Each request passes through a rule engine: an ordered list of rules where the first denial wins and fees add up. The service then records the return, updates abuse tracking, notifies the customer and writes an audit entry. Tests use a tiny GoogleTest-style framework, plus an end-to-end test that compares the CLI report with a known-good report.
+
+You've just joined the team. Five tickets are open, and the fraud team needs the abuse limit to apply per household, because people keep opening extra accounts to get around it. There are two parts:
 
 - **Part A: build a feature.** Implement household detection for the return-abuse limit.
 - **Part B: fix 5 bugs.** Each ticket has **one root cause**. Some are not in the obvious policy logic.
@@ -20,10 +24,7 @@ There are two parts:
 
 - **Don't edit the tests or `data/expected_report.txt`.** They are the spec.
 - Fix root causes. The real assessment also runs hidden tests.
-- **AI assistant:** open a terminal in this folder and run `claude`. It follows `CLAUDE.md`. It can
-  point you to files and functions, answer any C++/tooling question, and explain a data structure or
-  algorithm *you name*. It will not write code, design your approach, confirm your guesses, or tell you
-  what a bug is.
+- **AI assistant:** open a terminal in this folder and run `claude`. It follows `CLAUDE.md`. It can point you to files and functions, answer any C++/tooling question, and explain a data structure or algorithm *you name*. It will not write code, design your approach, confirm your guesses, or tell you what a bug is.
 
 ## Build and run
 
@@ -41,15 +42,9 @@ No Ninja? Drop `-G Ninja` and CMake picks a default generator.
 
 ## Part A: Households
 
-The abuse limit ("at most 3 approved returns per 30 days") is meant to apply per **household**, because
-people open several accounts to get around it. Two customers are in the same household if they share an
-address or a payment card, directly or through a chain of other customers.
+The abuse limit ("at most 3 approved returns per 30 days") should apply per **household**, not per account. Two customers are in the same household if they share an address or a payment card, directly or through a chain of other customers.
 
-The service already looks up each customer's household and counts returns per household. The missing
-piece is `buildHouseholds` in `src/fraud/Households.cpp`. Right now it's a placeholder that puts every
-customer in their own household. Implement it. The full spec (matching rules, which id represents a
-household, performance requirement) is in `src/fraud/Households.hpp`. The examples are in
-`tests/household_test.cpp`.
+The service already looks up each customer's household and counts returns per household. The missing piece is `buildHouseholds` in `src/fraud/Households.cpp`. Right now it's a placeholder that puts every customer in their own household. Implement it. The full spec (matching rules, which id represents a household, performance requirement) is in `src/fraud/Households.hpp`. The examples are in `tests/household_test.cpp`.
 
 ## Part B: Tickets
 
@@ -84,8 +79,7 @@ data/        policies.json, customers.json, orders.json, requests.json, expected
 - `.\build\unit_tests.exe` reports **69 tests, all passed**.
 - `.\build\returns-cli.exe data` prints the same report as `data/expected_report.txt`.
 
-Answer key (bugs + a reference solution for Part A): `../_answer_keys/02-returns-cpp.md.b64`. It's local
-only and base64-encoded so you can't spoil it by accident:
+Answer key (bugs + a reference solution for Part A): `../_answer_keys/02-returns-cpp.md.b64`. It's local only and base64-encoded so you can't spoil it by accident:
 
 ```powershell
 [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String((Get-Content -Raw ..\_answer_keys\02-returns-cpp.md.b64)))
