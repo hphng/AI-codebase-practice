@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+*.log
+.env
+
+# local only: personal attempts and answer keys (repo is public)
+_attempts/
+_answer_keys/

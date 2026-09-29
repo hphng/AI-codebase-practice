@@ -1,0 +1,17 @@
+[
+  { "id": "R-01", "orderId": "O-1001", "sku": "KB-01", "quantity": 1, "requestDate": "2024-03-31", "reason": "changed_mind" },
+  { "id": "R-02", "orderId": "O-1001", "sku": "CB-02", "quantity": 2, "requestDate": "2024-03-05", "reason": "defective" },
+  { "id": "R-03", "orderId": "O-1001", "sku": "CB-02", "quantity": 2, "requestDate": "2024-03-06", "reason": "changed_mind" },
+  { "id": "R-04", "orderId": "O-1002", "sku": "JK-01", "quantity": 1, "requestDate": "2024-03-20", "reason": "changed_mind" },
+  { "id": "R-05", "orderId": "O-1002", "sku": "BK-01", "quantity": 1, "requestDate": "2024-01-15", "reason": "wrong_item" },
+  { "id": "R-06", "orderId": "O-1003", "sku": "GR-01", "quantity": 1, "requestDate": "2024-02-03", "reason": "changed_mind" },
+  { "id": "R-07", "orderId": "O-1003", "sku": "HP-01", "quantity": 1, "requestDate": "2024-02-05", "reason": "changed_mind" },
+  { "id": "R-08", "orderId": "O-1003", "sku": "HP-01", "quantity": 1, "requestDate": "2024-02-06", "reason": "defective" },
+  { "id": "R-09", "orderId": "O-1004", "sku": "TS-01", "quantity": 1, "requestDate": "2024-04-10", "reason": "defective" },
+  { "id": "R-10", "orderId": "O-1004", "sku": "TS-02", "quantity": 1, "requestDate": "2024-04-11", "reason": "defective" },
+  { "id": "R-11", "orderId": "O-1004", "sku": "TS-03", "quantity": 1, "requestDate": "2024-03-01", "reason": "defective" },
+  { "id": "R-12", "orderId": "O-1004", "sku": "TS-04", "quantity": 1, "requestDate": "2024-04-12", "reason": "defective" },
+  { "id": "R-13", "orderId": "O-1004", "sku": "TS-05", "quantity": 1, "requestDate": "2024-04-15", "reason": "defective" },
+  { "id": "R-14", "orderId": "O-1005", "sku": "LP-01", "quantity": 1, "requestDate": "2024-03-10", "reason": "changed_mind" },
+  { "id": "R-15", "orderId": "O-9999", "sku": "XX-00", "quantity": 1, "requestDate": "2024-03-10", "reason": "changed_mind" }
+]

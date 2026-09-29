@@ -1,0 +1,57 @@
+#pragma once
+
+#include <string>
+#include <vector>
+
+#include "engine/ReturnEngine.hpp"
+#include "fraud/ReturnVelocityTracker.hpp"
+#include "policy/PolicyConfig.hpp"
+#include "store/CustomerRepository.hpp"
+#include "store/OrderRepository.hpp"
+
+namespace returns {
+
+struct AuditEntry {
+  ReturnRequest request;
+  Decision decision;
+};
+
+struct Notification {
+  std::string customerId;
+  std::string requestId;
+  std::string message;
+};
+
+// Entry point for processing return requests:
+//   1. decide    - look up order/item/customer and run the rule engine
+//   2. apply     - for approved returns, update the order and the velocity tracker
+//   3. audit     - every request is appended to the audit log
+//   4. notify    - the order's customer gets a message with the decision
+class ReturnService {
+ public:
+  ReturnService(PolicyConfig config, OrderRepository orders, CustomerRepository customers);
+
+  ReturnService(const ReturnService&) = delete;
+  ReturnService& operator=(const ReturnService&) = delete;
+
+  Decision submit(ReturnRequest request);
+
+  const std::vector<AuditEntry>& auditLog() const { return audit_; }
+  const std::vector<Notification>& outbox() const { return outbox_; }
+  const OrderRepository& orders() const { return orders_; }
+
+ private:
+  Decision decide(const ReturnRequest& request) const;
+  void applyReturn(const ReturnRequest& request);
+  void notifyCustomer(const ReturnRequest& request, const Decision& decision);
+
+  PolicyConfig config_;
+  OrderRepository orders_;
+  CustomerRepository customers_;
+  ReturnVelocityTracker velocity_;
+  ReturnEngine engine_;
+  std::vector<AuditEntry> audit_;
+  std::vector<Notification> outbox_;
+};
+
+}  // namespace returns

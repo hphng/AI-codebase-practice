@@ -1,0 +1,6 @@
+[
+  { "id": "C100", "name": "Ana Souza",           "tier": "standard" },
+  { "id": "C200", "name": "Jos\u00e9 \u00c1lvarez", "tier": "prime" },
+  { "id": "C300", "name": "Wen Li",              "tier": "business" },
+  { "id": "C400", "name": "Priya Nair",          "tier": "standard" }
+]

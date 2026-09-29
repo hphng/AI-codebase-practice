@@ -1,0 +1,34 @@
+REQ    ORDER   ITEM                        DECISION  REFUND    FEE      NOTES
+R-01   O-1001  Mechanical Keyboard         APPROVED  $76.49    $13.50   
+R-02   O-1001  USB-C Cable (3-pack)        APPROVED  $25.98    $0.00    
+R-03   O-1001  USB-C Cable (3-pack)        DENIED    -         -        quantity: only 1 unit(s) left to return
+R-04   O-1002  Rain Jacket                 APPROVED  $108.00   $12.00   
+R-05   O-1002  Crème Brûlée at Home     APPROVED  $24.99    $0.00    
+R-06   O-1003  Espresso Beans 1kg          DENIED    -         -        category: category "grocery" is not returnable
+R-07   O-1003  Noise-Cancelling Headphones DENIED    -         -        final-sale: final-sale items cannot be returned
+R-08   O-1003  Noise-Cancelling Headphones APPROVED  $199.99   $0.00    
+R-09   O-1004  T-Shirt Blue                APPROVED  $15.00    $0.00    
+R-10   O-1004  T-Shirt Red                 APPROVED  $15.00    $0.00    
+R-11   O-1004  T-Shirt Green               APPROVED  $15.00    $0.00    
+R-12   O-1004  T-Shirt Black               APPROVED  $15.00    $0.00    
+R-13   O-1004  T-Shirt White               DENIED    -         -        velocity: customer already has 3 returns in the last 30 days
+R-14   O-1005  Desk Lamp                   DENIED    -         -        unknown customer C999
+R-15   O-9999  XX-00                       DENIED    -         -        unknown order O-9999
+
+Notifications (14):
+  to C100  Return R-01 approved. Refund: $76.49
+  to C100  Return R-02 approved. Refund: $25.98
+  to C100  Return R-03 declined: quantity: only 1 unit(s) left to return
+  to C200  Return R-04 approved. Refund: $108.00
+  to C200  Return R-05 approved. Refund: $24.99
+  to C300  Return R-06 declined: category: category "grocery" is not returnable
+  to C300  Return R-07 declined: final-sale: final-sale items cannot be returned
+  to C300  Return R-08 approved. Refund: $199.99
+  to C400  Return R-09 approved. Refund: $15.00
+  to C400  Return R-10 approved. Refund: $15.00
+  to C400  Return R-11 approved. Refund: $15.00
+  to C400  Return R-12 approved. Refund: $15.00
+  to C400  Return R-13 declined: velocity: customer already has 3 returns in the last 30 days
+  to C999  Return R-14 declined: unknown customer C999
+
+Summary: 9 approved, 6 denied, $495.45 refunded

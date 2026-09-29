@@ -1,0 +1,13 @@
+{
+  "default": { "windowDays": 30, "restockingFeePercent": 10 },
+  "categories": {
+    "electronics": { "restockingFeePercent": 15 },
+    "apparel":     { "windowDays": 60 },
+    "books":       { "restockingFeePercent": 0 },
+    "grocery":     { "returnable": false }
+  },
+  "tierExtraDays": { "prime": 15, "business": 30 },
+  "feeWaivedReasons": ["defective", "wrong_item", "damaged_in_transit"],
+  "finalSale": { "allowDefective": true },
+  "velocity": { "maxReturns": 3, "windowDays": 30 }
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "id": "O-0042", "customerId": "C300", "purchaseDate": "2000-02-29",
+    "items": [
+      { "sku": "WM-01", "name": "Vintage Walkman", "category": "electronics", "unitPriceCents": 4999, "quantity": 1 }
+    ]
+  },
+  {
+    "id": "O-1001", "customerId": "C100", "purchaseDate": "2024-03-01",
+    "items": [
+      { "sku": "KB-01", "name": "Mechanical Keyboard",  "category": "Electronics", "unitPriceCents": 8999, "quantity": 1 },
+      { "sku": "CB-02", "name": "USB-C Cable (3-pack)", "category": "Electronics", "unitPriceCents": 1299, "quantity": 3 }
+    ]
+  },
+  {
+    "id": "O-1002", "customerId": "C200", "purchaseDate": "2024-01-10",
+    "items": [
+      { "sku": "JK-01", "name": "Rain Jacket",                          "category": "apparel", "unitPriceCents": 12000, "quantity": 1 },
+      { "sku": "BK-01", "name": "Cr\u00e8me Br\u00fbl\u00e9e at Home", "category": "books",   "unitPriceCents": 2499,  "quantity": 1 }
+    ]
+  },
+  {
+    "id": "O-1003", "customerId": "C300", "purchaseDate": "2024-02-01",
+    "items": [
+      { "sku": "GR-01", "name": "Espresso Beans 1kg",          "category": "grocery",     "unitPriceCents": 1899,  "quantity": 2 },
+      { "sku": "HP-01", "name": "Noise-Cancelling Headphones", "category": "electronics", "unitPriceCents": 19999, "quantity": 1, "finalSale": true }
+    ]
+  },
+  {
+    "id": "O-1004", "customerId": "C400", "purchaseDate": "2024-02-20",
+    "items": [
+      { "sku": "TS-01", "name": "T-Shirt Blue",  "category": "apparel", "unitPriceCents": 1500, "quantity": 1 },
+      { "sku": "TS-02", "name": "T-Shirt Red",   "category": "apparel", "unitPriceCents": 1500, "quantity": 1 },
+      { "sku": "TS-03", "name": "T-Shirt Green", "category": "apparel", "unitPriceCents": 1500, "quantity": 1 },
+      { "sku": "TS-04", "name": "T-Shirt Black", "category": "apparel", "unitPriceCents": 1500, "quantity": 1 },
+      { "sku": "TS-05", "name": "T-Shirt White", "category": "apparel", "unitPriceCents": 1500, "quantity": 1 }
+    ]
+  },
+  {
+    "id": "O-1005", "customerId": "C999", "purchaseDate": "2024-03-01",
+    "items": [
+      { "sku": "LP-01", "name": "Desk Lamp", "category": "home", "unitPriceCents": 3499, "quantity": 1 }
+    ]
+  }
+]

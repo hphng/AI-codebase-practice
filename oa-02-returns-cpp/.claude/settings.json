@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit",
+      "Write",
+      "NotebookEdit",
+      "Bash",
+      "PowerShell",
+      "Agent",
+      "Read(//d/amazon/_answer_keys/**)",
+      "Read(../_answer_keys/**)"
+    ],
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob"
+    ]
+  }
+}

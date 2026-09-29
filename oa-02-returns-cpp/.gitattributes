@@ -1,0 +1,2 @@
+# Keep data files byte-for-byte (they were edited on Windows).
+data/*.json -text
