@@ -17,6 +17,7 @@ struct EvalContext {
   const CategoryPolicy& policy;
   const PolicyConfig& config;
   const ReturnVelocityTracker& velocity;
+  const std::string& household;  // household id of the order's customer (see fraud/Households.hpp)
 };
 
 enum class Outcome { Pass, Deny };

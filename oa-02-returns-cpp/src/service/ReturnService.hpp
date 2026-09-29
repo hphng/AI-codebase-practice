@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "engine/ReturnEngine.hpp"
+#include "fraud/Households.hpp"
 #include "fraud/ReturnVelocityTracker.hpp"
 #include "policy/PolicyConfig.hpp"
 #include "store/CustomerRepository.hpp"
@@ -24,7 +26,7 @@ struct Notification {
 
 // Entry point for processing return requests:
 //   1. decide    - look up order/item/customer and run the rule engine
-//   2. apply     - for approved returns, update the order and the velocity tracker
+//   2. apply     - for approved returns, update the order and the household's velocity count
 //   3. audit     - every request is appended to the audit log
 //   4. notify    - the order's customer gets a message with the decision
 class ReturnService {
@@ -44,10 +46,12 @@ class ReturnService {
   Decision decide(const ReturnRequest& request) const;
   void applyReturn(const ReturnRequest& request);
   void notifyCustomer(const ReturnRequest& request, const Decision& decision);
+  const std::string& householdOf(const std::string& customerId) const;
 
   PolicyConfig config_;
   OrderRepository orders_;
   CustomerRepository customers_;
+  std::unordered_map<std::string, std::string> households_;  // customerId -> householdId
   ReturnVelocityTracker velocity_;
   ReturnEngine engine_;
   std::vector<AuditEntry> audit_;

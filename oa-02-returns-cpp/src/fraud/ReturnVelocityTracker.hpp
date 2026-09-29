@@ -9,7 +9,7 @@
 
 namespace returns {
 
-// Tracks approved returns per customer to detect return abuse.
+// Tracks approved returns per key (the service uses household ids) to detect return abuse.
 //
 // Returns can be recorded in any order (batches are replayed, late files arrive),
 // so lookups must not assume chronological recording.

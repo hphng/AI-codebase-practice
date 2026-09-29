@@ -32,13 +32,20 @@ struct World {
                      {item("S1", "apparel", 1500, 1), item("S2", "apparel", 1500, 1), item("S3", "apparel", 1500, 1),
                       item("S4", "apparel", 1500, 1), item("S5", "apparel", 1500, 1)}));
     orders.add(order("O-GHOST", "C-404", "2024-03-01", {item("X", "apparel", 1000, 1)}));
+    orders.add(order("O-3", "C-3", "2024-02-20", {item("S6", "apparel", 1500, 1)}));
     return orders;
   }
 
+  // C-3 is a second account in C-2's household (same address, different spelling).
   static CustomerRepository makeCustomers() {
     CustomerRepository customers;
     customers.add(customer("C-1"));
-    customers.add(customer("C-2"));
+    Customer c2 = customer("C-2");
+    c2.addresses = {"55 Harbor View"};
+    customers.add(c2);
+    Customer c3 = customer("C-3");
+    c3.addresses = {"55 HARBOR VIEW "};
+    customers.add(c3);
     return customers;
   }
 };
@@ -99,6 +106,17 @@ TEST(Service, VelocityLimitWithReplayedBatch) {
   EXPECT_TRUE(w.service.submit(request("R-3", "O-2", "S3", 1, "2024-03-01", "defective")).approved);
   EXPECT_TRUE(w.service.submit(request("R-4", "O-2", "S4", 1, "2024-04-12", "defective")).approved);
   EXPECT_FALSE(w.service.submit(request("R-5", "O-2", "S5", 1, "2024-04-15", "defective")).approved);
+}
+
+TEST(Service, VelocityLimitAppliesToTheWholeHousehold) {
+  World w;
+  EXPECT_TRUE(w.service.submit(request("R-1", "O-2", "S1", 1, "2024-03-01", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-2", "O-2", "S2", 1, "2024-03-02", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-3", "O-2", "S3", 1, "2024-03-03", "defective")).approved);
+  const Decision d = w.service.submit(request("R-4", "O-3", "S6", 1, "2024-03-04", "defective"));
+  EXPECT_FALSE(d.approved);
+  ASSERT_EQ(d.reasons.size(), static_cast<std::size_t>(1));
+  EXPECT_CONTAINS(d.reasons[0], "velocity");
 }
 
 TEST(Service, WritesAnAuditEntryForEveryRequest) {

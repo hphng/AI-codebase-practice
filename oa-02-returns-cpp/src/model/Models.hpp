@@ -17,6 +17,8 @@ struct Customer {
   std::string id;
   std::string name;
   Tier tier = Tier::Standard;
+  std::vector<std::string> addresses;            // shipping addresses on file
+  std::vector<std::string> paymentFingerprints;  // hashed card identifiers
 };
 
 struct LineItem {

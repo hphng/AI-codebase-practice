@@ -36,9 +36,9 @@ RuleResult ReturnWindowRule::evaluate(const EvalContext& ctx) const {
 }
 
 RuleResult VelocityRule::evaluate(const EvalContext& ctx) const {
-  const int recent = ctx.velocity.countInWindow(ctx.customer.id, ctx.request.requestDate);
+  const int recent = ctx.velocity.countInWindow(ctx.household, ctx.request.requestDate);
   if (recent >= ctx.config.velocityMaxReturns()) {
-    return RuleResult::deny("customer already has " + std::to_string(recent) + " returns in the last " +
+    return RuleResult::deny("household already has " + std::to_string(recent) + " returns in the last " +
                             std::to_string(ctx.velocity.windowDays()) + " days");
   }
   return RuleResult::pass();

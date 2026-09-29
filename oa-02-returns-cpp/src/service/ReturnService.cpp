@@ -8,6 +8,7 @@ ReturnService::ReturnService(PolicyConfig config, OrderRepository orders, Custom
     : config_(std::move(config)),
       orders_(std::move(orders)),
       customers_(std::move(customers)),
+      households_(buildHouseholds(customers_.all())),
       velocity_(config_.velocityWindowDays()),
       engine_(makeDefaultRules(config_)) {}
 
@@ -15,8 +16,8 @@ Decision ReturnService::submit(ReturnRequest request) {
   Decision decision = decide(request);
   if (decision.approved) applyReturn(request);
 
-  audit_.push_back(AuditEntry{std::move(request), decision});
   notifyCustomer(request, decision);
+  audit_.push_back(AuditEntry{std::move(request), decision});
   return decision;
 }
 
@@ -30,16 +31,21 @@ Decision ReturnService::decide(const ReturnRequest& request) const {
   const Customer* customer = customers_.find(order->customerId);
   if (!customer) return Decision::deny(request.id, "unknown customer " + order->customerId);
 
-  const EvalContext ctx{*order, *item, *customer, request, config_.forCategory(item->category), config_,
-                        velocity_};
+  const EvalContext ctx{*order,  *item,    *customer, request, config_.forCategory(item->category),
+                        config_, velocity_, householdOf(customer->id)};
   return engine_.evaluate(ctx);
 }
 
 void ReturnService::applyReturn(const ReturnRequest& request) {
   orders_.recordReturn(request.orderId, request.sku, request.quantity);
   if (const Order* order = orders_.find(request.orderId)) {
-    velocity_.record(order->customerId, request.requestDate);
+    velocity_.record(householdOf(order->customerId), request.requestDate);
   }
+}
+
+const std::string& ReturnService::householdOf(const std::string& customerId) const {
+  auto it = households_.find(customerId);
+  return it != households_.end() ? it->second : customerId;
 }
 
 void ReturnService::notifyCustomer(const ReturnRequest& request, const Decision& decision) {

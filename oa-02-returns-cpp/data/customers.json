@@ -1,6 +1,14 @@
 [
-  { "id": "C100", "name": "Ana Souza",           "tier": "standard" },
-  { "id": "C200", "name": "Jos\u00e9 \u00c1lvarez", "tier": "prime" },
-  { "id": "C300", "name": "Wen Li",              "tier": "business" },
-  { "id": "C400", "name": "Priya Nair",          "tier": "standard" }
+  { "id": "C100", "name": "Ana Souza", "tier": "standard",
+    "addresses": ["18 Rua Azul, Lisbon"], "paymentFingerprints": ["fp-ana-01"] },
+  { "id": "C200", "name": "Jos\u00e9 \u00c1lvarez", "tier": "prime",
+    "addresses": ["Calle Mayor 3, Madrid"], "paymentFingerprints": ["fp-jose-77"] },
+  { "id": "C300", "name": "Wen Li", "tier": "business",
+    "addresses": ["88 Nanjing Rd, Shanghai"], "paymentFingerprints": ["fp-wen-02"] },
+  { "id": "C400", "name": "Priya Nair", "tier": "standard",
+    "addresses": ["21 Lake View Rd, Pune"], "paymentFingerprints": ["fp-priya-10"] },
+  { "id": "C500", "name": "Arjun Nair", "tier": "standard",
+    "addresses": ["21 LAKE VIEW RD, PUNE "], "paymentFingerprints": ["fp-arjun-55"] },
+  { "id": "C600", "name": "Sam Okafor", "tier": "standard",
+    "addresses": ["4 Canal St, Leeds"], "paymentFingerprints": ["fp-arjun-55"] }
 ]

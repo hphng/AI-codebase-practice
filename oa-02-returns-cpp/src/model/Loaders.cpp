@@ -7,6 +7,12 @@ Customer customerFromJson(const json::Value& value) {
   c.id = value["id"].asString();
   c.name = value.getString("name", "");
   c.tier = parseTier(value.getString("tier", "standard"));
+  if (value.has("addresses")) {
+    for (const auto& a : value["addresses"].asArray()) c.addresses.push_back(a.asString());
+  }
+  if (value.has("paymentFingerprints")) {
+    for (const auto& p : value["paymentFingerprints"].asArray()) c.paymentFingerprints.push_back(p.asString());
+  }
   return c;
 }
 

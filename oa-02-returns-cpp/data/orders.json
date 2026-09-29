@@ -37,6 +37,12 @@
     ]
   },
   {
+    "id": "O-1006", "customerId": "C600", "purchaseDate": "2024-04-01",
+    "items": [
+      { "sku": "PH-01", "name": "Phone Case", "category": "electronics", "unitPriceCents": 1999, "quantity": 1 }
+    ]
+  },
+  {
     "id": "O-1005", "customerId": "C999", "purchaseDate": "2024-03-01",
     "items": [
       { "sku": "LP-01", "name": "Desk Lamp", "category": "home", "unitPriceCents": 3499, "quantity": 1 }

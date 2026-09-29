@@ -36,8 +36,8 @@ class ReturnWindowRule : public Rule {
   RuleResult evaluate(const EvalContext& ctx) const override;
 };
 
-// Denies the return if the customer already has the maximum number of approved
-// returns inside the velocity window ending on the request date.
+// Denies the return if the customer's household already has the maximum number of
+// approved returns inside the velocity window ending on the request date.
 class VelocityRule : public Rule {
  public:
   std::string name() const override { return "velocity"; }

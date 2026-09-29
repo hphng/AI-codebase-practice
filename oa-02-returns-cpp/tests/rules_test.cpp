@@ -17,13 +17,13 @@ struct Fixture {
 
   Decision run(const ReturnRequest& req) const {
     const LineItem& li = *ord.findItem(req.sku);
-    const EvalContext ctx{ord, li, cust, req, config.forCategory(li.category), config, velocity};
+    const EvalContext ctx{ord, li, cust, req, config.forCategory(li.category), config, velocity, cust.id};
     return ReturnEngine(makeDefaultRules(config)).evaluate(ctx);
   }
 
   RuleResult runRule(const Rule& rule, const ReturnRequest& req) const {
     const LineItem& li = *ord.findItem(req.sku);
-    const EvalContext ctx{ord, li, cust, req, config.forCategory(li.category), config, velocity};
+    const EvalContext ctx{ord, li, cust, req, config.forCategory(li.category), config, velocity, cust.id};
     return rule.evaluate(ctx);
   }
 };

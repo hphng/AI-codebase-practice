@@ -11,11 +11,12 @@ R-09   O-1004  T-Shirt Blue                APPROVED  $15.00    $0.00
 R-10   O-1004  T-Shirt Red                 APPROVED  $15.00    $0.00    
 R-11   O-1004  T-Shirt Green               APPROVED  $15.00    $0.00    
 R-12   O-1004  T-Shirt Black               APPROVED  $15.00    $0.00    
-R-13   O-1004  T-Shirt White               DENIED    -         -        velocity: customer already has 3 returns in the last 30 days
+R-13   O-1004  T-Shirt White               DENIED    -         -        velocity: household already has 3 returns in the last 30 days
 R-14   O-1005  Desk Lamp                   DENIED    -         -        unknown customer C999
 R-15   O-9999  XX-00                       DENIED    -         -        unknown order O-9999
+R-16   O-1006  Phone Case                  DENIED    -         -        velocity: household already has 3 returns in the last 30 days
 
-Notifications (14):
+Notifications (15):
   to C100  Return R-01 approved. Refund: $76.49
   to C100  Return R-02 approved. Refund: $25.98
   to C100  Return R-03 declined: quantity: only 1 unit(s) left to return
@@ -28,7 +29,8 @@ Notifications (14):
   to C400  Return R-10 approved. Refund: $15.00
   to C400  Return R-11 approved. Refund: $15.00
   to C400  Return R-12 approved. Refund: $15.00
-  to C400  Return R-13 declined: velocity: customer already has 3 returns in the last 30 days
+  to C400  Return R-13 declined: velocity: household already has 3 returns in the last 30 days
   to C999  Return R-14 declined: unknown customer C999
+  to C600  Return R-16 declined: velocity: household already has 3 returns in the last 30 days
 
-Summary: 9 approved, 6 denied, $495.45 refunded
+Summary: 9 approved, 7 denied, $495.45 refunded

@@ -5,7 +5,9 @@
 namespace returns {
 
 void ReturnVelocityTracker::record(const std::string& customerId, const Date& date) {
-  days_[customerId].push_back(date.toDays());
+  auto& days = days_[customerId];
+  const std::int64_t day = date.toDays();
+  days.insert(std::upper_bound(days.begin(), days.end(), day), day);
 }
 
 int ReturnVelocityTracker::countInWindow(const std::string& customerId, const Date& date) const {
