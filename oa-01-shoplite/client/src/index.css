@@ -26,3 +26,5 @@ th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e3e6ec; }
 .login form { display: flex; flex-direction: column; gap: 8px; max-width: 360px; }
 .user { margin-left: 8px; font-size: 14px; }
 .detail { margin-top: 12px; }
+.also-bought { margin-top: 16px; }
+.also-bought ul { padding-left: 18px; }

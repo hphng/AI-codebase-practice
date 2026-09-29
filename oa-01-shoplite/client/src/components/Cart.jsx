@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api, formatPrice } from '../api';
 import { useCart } from '../state/CartContext.jsx';
+import AlsoBought from './AlsoBought.jsx';
 
 export default function Cart({ user, onNeedLogin }) {
   const { items, total, updateQuantity, removeItem, clear } = useCart();
@@ -61,6 +62,7 @@ export default function Cart({ user, onNeedLogin }) {
       <button className="primary" onClick={checkout}>
         {user ? 'Place order' : 'Log in to check out'}
       </button>
+      <AlsoBought productId={items[items.length - 1].productId} productName={items[items.length - 1].name} />
     </section>
   );
 }

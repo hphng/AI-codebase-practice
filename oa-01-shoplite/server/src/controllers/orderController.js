@@ -20,7 +20,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (!order) throw new AppError(404, 'Order not found');
 
-  const isOwner = order.user === req.user.id;
+  const isOwner = order.user.equals(req.user.id);
   if (!isOwner && req.user.role !== 'admin') {
     throw new AppError(403, 'You do not have access to this order');
   }

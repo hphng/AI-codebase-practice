@@ -22,7 +22,7 @@ function topSellingProducts(orders, k) {
   }
 
   return [...tally.values()]
-    .sort((a, b) => a.unitsSold < b.unitsSold || (a.unitsSold === b.unitsSold && a.name > b.name))
+    .sort((a, b) => b.unitsSold - a.unitsSold || a.name.localeCompare(b.name))
     .slice(0, k);
 }
 

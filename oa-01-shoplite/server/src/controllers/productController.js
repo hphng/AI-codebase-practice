@@ -1,7 +1,9 @@
 const Product = require('../models/Product');
+const Order = require('../models/Order');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../middleware/asyncHandler');
 const productCache = require('../cache/productCache');
+const { frequentlyBoughtTogether } = require('../services/recommendationService');
 
 const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -48,6 +50,26 @@ const getProductById = asyncHandler(async (req, res) => {
   res.json(product);
 });
 
+// GET /api/products/:id/also-bought?k=4
+const getAlsoBought = asyncHandler(async (req, res) => {
+  const k = Math.min(Math.max(parseInt(req.query.k, 10) || 4, 1), 20);
+
+  const product = await Product.findById(req.params.id).lean();
+  if (!product) throw new AppError(404, 'Product not found');
+
+  const orders = await Order.find({ 'items.product': product._id }).lean();
+  const ranked = frequentlyBoughtTogether(orders, String(product._id), k);
+
+  // Attach current price/stock so the client can offer "Add to cart".
+  const details = await Product.find({ _id: { $in: ranked.map((r) => r.productId) } }).lean();
+  const byId = new Map(details.map((p) => [String(p._id), p]));
+  res.json(
+    ranked
+      .filter((r) => byId.has(r.productId))
+      .map((r) => ({ ...r, price: byId.get(r.productId).price, stock: byId.get(r.productId).stock }))
+  );
+});
+
 // POST /api/products (admin)
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, category, price, stock } = req.body || {};
@@ -73,4 +95,11 @@ const updateProduct = asyncHandler(async (req, res) => {
   res.json(product);
 });
 
-module.exports = { listProducts, searchProducts, getProductById, createProduct, updateProduct };
+module.exports = {
+  listProducts,
+  searchProducts,
+  getProductById,
+  getAlsoBought,
+  createProduct,
+  updateProduct,
+};

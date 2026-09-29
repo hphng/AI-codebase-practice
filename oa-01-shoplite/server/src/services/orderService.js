@@ -31,14 +31,14 @@ function normalizeItems(rawItems) {
 async function validateStock(items) {
   const errors = [];
 
-  items.forEach(async ({ productId, quantity }) => {
+  for (const { productId, quantity } of items) {
     const product = await Product.findById(productId);
     if (!product) {
       errors.push(`Product ${productId} not found`);
     } else if (product.stock < quantity) {
       errors.push(`Insufficient stock for ${product.name}`);
     }
-  });
+  }
 
   if (errors.length > 0) {
     throw new AppError(400, errors.join('; '));

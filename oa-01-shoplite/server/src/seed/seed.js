@@ -33,7 +33,7 @@ const PRODUCTS = [
 async function seed() {
   await Promise.all([User.deleteMany({}), Product.deleteMany({}), Order.deleteMany({})]);
 
-  const [admin, alice] = await User.create([
+  const [admin, alice, bob] = await User.create([
     { name: 'Admin', email: 'admin@shoplite.dev', password: 'admin123', role: 'admin' },
     { name: 'Alice', email: 'alice@shoplite.dev', password: 'alice123' },
     { name: 'Bob', email: 'bob@shoplite.dev', password: 'bob12345' },
@@ -68,6 +68,12 @@ async function seed() {
     orderOf(alice, 'shipped', [line('Smart Plug (2-pack)', 4)]),
     orderOf(alice, 'pending', [line('Plush Dinosaur', 3), line('Desk Lamp', 1)]),
     orderOf(admin, 'paid', [line('E-Reader', 1), line('Wireless Mouse', 2)]),
+    orderOf(bob, 'delivered', [line('Mechanical Keyboard', 1), line('Wireless Mouse', 1), line('USB-C Charger 65W', 1)]),
+    orderOf(bob, 'delivered', [line('Mechanical Keyboard', 1), line('Wireless Mouse', 1)]),
+    orderOf(alice, 'delivered', [line('Wireless Mouse', 1), line('USB-C Charger 65W', 1), line('Bluetooth Speaker', 1)]),
+    orderOf(alice, 'paid', [line('Drip Coffee Maker', 1), line('Ceramic Mug Set', 1)]),
+    orderOf(bob, 'delivered', [line('Drip Coffee Maker', 1), line('Ceramic Mug Set', 1), line('Stainless Water Bottle', 1)]),
+    orderOf(admin, 'cancelled', [line('Wireless Mouse', 1), line('Robot Vacuum', 1)]),
   ]);
 
   console.log('[seed] users: admin@shoplite.dev / admin123, alice@shoplite.dev / alice123, bob@shoplite.dev / bob12345');

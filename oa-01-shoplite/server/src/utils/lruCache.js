@@ -53,6 +53,8 @@ class LRUCache {
     const existing = this.map.get(key);
     if (existing) {
       existing.value = value;
+      this._unlink(existing);
+      this._pushFront(existing);
       return;
     }
 
