@@ -91,9 +91,9 @@ client/src
 - `npm run dev` works end to end: log in, see bins grouped by aisle in walking order, correct a count as a
   lead, create a pick list, and plan a route that's drawn on the map.
 
-Answer key (bugs + a reference solution for Part A): `../_answer_keys/oa-03-pickpath.md.b64`. It's local only
+Answer key (bugs + a reference solution for Part A): `../_answer_keys/03-pickpath.md.b64`. It's local only
 and base64-encoded so you can't spoil it by accident:
 
 ```powershell
-[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String((Get-Content -Raw ..\_answer_keys\oa-03-pickpath.md.b64)))
+[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String((Get-Content -Raw ..\_answer_keys\03-pickpath.md.b64)))
 ```

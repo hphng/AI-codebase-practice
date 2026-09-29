@@ -88,9 +88,9 @@ client/src
 - `npm run dev` works end to end: browse, search, add to cart (with "Frequently bought with" suggestions),
   check out, view and cancel an order.
 
-Answer key (bugs + a reference solution for Part A): `../_answer_keys/oa-01-shoplite.md.b64`. It's local only
+Answer key (bugs + a reference solution for Part A): `../_answer_keys/01-shoplite.md.b64`. It's local only
 and base64-encoded so you can't spoil it by accident. Decode it (PowerShell):
 
 ```powershell
-[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String((Get-Content -Raw ..\_answer_keys\oa-01-shoplite.md.b64)))
+[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String((Get-Content -Raw ..\_answer_keys\01-shoplite.md.b64)))
 ```
