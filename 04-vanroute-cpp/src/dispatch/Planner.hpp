@@ -35,14 +35,15 @@ struct Plan {
 
 // Greedy dispatch:
 //  1. Cancelled parcels are ignored.
-//  2. Parcels are taken in dispatch order (earliest deadline first, ties by id).
+//  2. Parcels are taken in dispatch order (see DispatchQueue).
 //  3. Each parcel goes to the FIRST van (input order) that
 //       - has enough capacity left, and
 //       - can reach the parcel's destination from where it is now, and
 //       - can finish the delivery (arrival + service time) by the end of its shift.
 //     The van then drives there: arrival = its clock + travel minutes, and its clock becomes
 //     arrival + service time. Vans start at their depot at shiftStart.
-//  4. A stop is "late" if arrival > deadline (it's still delivered).
+//  4. A stop is "late" if it arrives after the deadline; arriving exactly at the deadline is on time.
+//     Late parcels are still delivered.
 //  5. Parcels no van can take are listed in `unassigned`.
 class Planner {
  public:

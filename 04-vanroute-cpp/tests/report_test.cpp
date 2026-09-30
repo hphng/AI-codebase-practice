@@ -10,10 +10,15 @@ using namespace vanroute;
 
 namespace {
 
-Plan planWith(std::vector<std::pair<int, int>> loads) {  // (load, capacity) per van
+// (load, capacity) per van. Vans with a load get one stop per unit; empty vans stay at the depot.
+Plan planWith(std::vector<std::pair<int, int>> loads) {
   Plan plan;
   int n = 0;
-  for (auto [load, capacity] : loads) plan.vans.push_back({"V" + std::to_string(++n), capacity, load, {}});
+  for (auto [load, capacity] : loads) {
+    VanPlan van{"V" + std::to_string(++n), capacity, load, {}};
+    for (int i = 0; i < load; ++i) van.stops.push_back({"P" + std::to_string(i), "X", 480 + i, false});
+    plan.vans.push_back(van);
+  }
   return plan;
 }
 
@@ -23,6 +28,11 @@ TEST(Report, FleetUtilizationAveragesVans) {
   EXPECT_TRUE(std::fabs(fleetUtilization(planWith({{6, 6}, {2, 4}})) - 0.75) < 1e-9);
   EXPECT_TRUE(std::fabs(fleetUtilization(planWith({{3, 4}, {1, 2}})) - 0.625) < 1e-9);
   EXPECT_TRUE(std::fabs(fleetUtilization(planWith({{1, 3}})) - 1.0 / 3.0) < 1e-9);
+}
+
+TEST(Report, FleetUtilizationCountsIdleVans) {
+  EXPECT_TRUE(std::fabs(fleetUtilization(planWith({{6, 6}, {2, 4}, {0, 4}})) - 0.5) < 1e-9);
+  EXPECT_TRUE(std::fabs(fleetUtilization(planWith({{4, 4}, {0, 4}})) - 0.5) < 1e-9);
 }
 
 TEST(Report, FleetUtilizationEdgeCases) {

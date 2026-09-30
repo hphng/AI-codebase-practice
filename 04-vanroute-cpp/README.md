@@ -48,11 +48,11 @@ Implement it. The full spec (return value, unreachable nodes, zero-minute and pa
 
 | ID | Area | Report |
 |----|------|--------|
-| VR-1 | Data files | Since someone added header notes to the CSV files, `vanroute-cli` won't start. |
-| VR-2 | Report | The "Fleet utilization" line at the bottom of the report always says 0.0%, even when vans are full. |
-| VR-3 | Vans | Drivers on half shifts are getting stops scheduled after they've clocked out. |
-| VR-4 | Dispatch | Parcels with the most urgent deadlines are being delivered last. |
-| VR-5 | Planning service | In the long-running planning service, ETAs stay wrong after a road closure is loaded mid-day. Restarting the service fixes it. (The CLI runs once per day, so you won't see this there, but the tests will.) |
+| VR-1 | Driver scorecards | Drivers who arrive exactly at the promised time are being marked **LATE** on their scorecards. Today it happened to P10. |
+| VR-2 | Cancellations | Customers who cancelled their order still get a van at their door. Support confirms those parcels are marked as cancelled in `parcels.csv`. |
+| VR-3 | Dispatch | On busy mornings the bulky parcels are the ones left behind at the station, even though ops rule DSP-7 is supposed to prevent exactly that. |
+| VR-4 | Reporting | The station manager says the fleet utilization figure looks too good: on days when a van never leaves the depot, the number doesn't go down. |
+| VR-5 | ETAs | Customers say drivers arrive later than the ETA we send them, and the gap grows the later the stop is in the route. |
 
 ## Architecture
 
@@ -70,7 +70,7 @@ data/        roads.csv, vans.csv, parcels.csv, expected_report.txt
 
 ## Done when
 
-- `.\build\unit_tests.exe` reports **34 tests, all passed**.
+- `.\build\unit_tests.exe` reports **38 tests, all passed**.
 - `.\build\vanroute-cli.exe data` prints the same report as `data/expected_report.txt`.
 
 Answer key (bugs + a reference solution for Part A): `../_answer_keys/04-vanroute-cpp.md.b64`. It's local only and base64-encoded so you can't spoil it by accident:

@@ -8,4 +8,7 @@ P06,LIGHTHOUSE,1,11:00,ready
 P07,N09,3,12:00,ready
 P08,N05,1,09:00,cancelled
 P09,N01,1,13:00,ready
-P10,N07,1,08:10,ready
+P10,N01,1,08:05,ready
+P11,N03,3,09:00,ready
+P12,N09,1,10:00,ready
+P13,N05,3,10:00,ready

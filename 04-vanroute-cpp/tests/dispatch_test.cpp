@@ -65,6 +65,18 @@ TEST(DispatchQueue, TiesByParcelId) {
   EXPECT_EQ(order, (std::vector<std::string>{"P1", "P5", "P9"}));
 }
 
+TEST(DispatchQueue, SameDeadlineLargerParcelsFirst) {
+  DispatchQueue q;
+  q.push(parcel("P1", "X", 1, 600));
+  q.push(parcel("P2", "X", 3, 600));
+  q.push(parcel("P3", "X", 2, 600));
+  q.push(parcel("P0", "X", 1, 540));
+  q.push(parcel("P4", "X", 3, 600));
+  std::vector<std::string> order;
+  while (!q.empty()) order.push_back(q.pop().id);
+  EXPECT_EQ(order, (std::vector<std::string>{"P0", "P2", "P4", "P3", "P1"}));
+}
+
 // ---------- Planner (uses a table of travel times, not the road network) ----------
 
 TEST(Planner, DeliversInDispatchOrder) {
@@ -78,8 +90,31 @@ TEST(Planner, DeliversInDispatchOrder) {
 
   ASSERT_EQ(plan.vans[0].stops.size(), static_cast<std::size_t>(2));
   EXPECT_EQ(plan.vans[0].stops[0].parcelId, std::string("PB"));
-  EXPECT_EQ(plan.vans[0].stops[0].arrival, 500);      // 08:00 + 20
-  EXPECT_EQ(plan.vans[0].stops[1].arrival, 500 + 5 + 15);  // service 5, then B->A 15
+  EXPECT_EQ(plan.vans[0].stops[1].parcelId, std::string("PA"));
+  EXPECT_EQ(plan.vans[0].stops[0].arrival, 500);  // 08:00 + 20
+}
+
+TEST(Planner, LaterStopsIncludeTimeSpentAtEarlierStops) {
+  TableOracle t;
+  t.set("eta-D", "eta-A", 10).set("eta-A", "eta-B", 10).set("eta-B", "eta-C", 10);
+  const Planner planner(t);  // 5 minutes at every stop
+  const Plan plan = planner.plan({Van("V1", "eta-D", 10, 480, 1080)},
+                                 {parcel("PA", "eta-A", 1, 900), parcel("PB", "eta-B", 1, 901), parcel("PC", "eta-C", 1, 902)});
+
+  ASSERT_EQ(plan.vans[0].stops.size(), static_cast<std::size_t>(3));
+  EXPECT_EQ(plan.vans[0].stops[0].arrival, 490);  // 08:10
+  EXPECT_EQ(plan.vans[0].stops[1].arrival, 505);  // 08:10 + 5 at A + 10 driving
+  EXPECT_EQ(plan.vans[0].stops[2].arrival, 520);  // + 5 at B + 10 driving
+}
+
+TEST(Planner, ArrivingExactlyAtTheDeadlineIsOnTime) {
+  TableOracle t;
+  t.set("ot-D", "ot-A", 30);
+  const Planner planner(t);
+  const Plan plan = planner.plan({Van("V1", "ot-D", 5, 480, 1080)}, {parcel("P1", "ot-A", 1, 510)});
+  ASSERT_EQ(plan.vans[0].stops.size(), static_cast<std::size_t>(1));
+  EXPECT_EQ(plan.vans[0].stops[0].arrival, 510);
+  EXPECT_FALSE(plan.vans[0].stops[0].late);
 }
 
 TEST(Planner, FillsVansInOrderAndRespectsCapacity) {

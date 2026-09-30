@@ -54,7 +54,7 @@ std::vector<Parcel> loadParcels(const std::vector<CsvRow>& rows) {
     p.destination = row.fields[1];
     p.size = toInt(row, 2);
     p.deadline = clockField(row, 3);
-    p.cancelled = status == "cancelled";
+    p.cancelled = status == "canceled";
     parcels.push_back(p);
   }
   return parcels;

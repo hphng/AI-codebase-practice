@@ -20,7 +20,7 @@ std::string trim(const std::string& text) {
 
 std::string stripComment(const std::string& line) {
   const auto hash = line.find('#');
-  if (hash) return line.substr(0, hash);
+  if (hash != std::string::npos) return line.substr(0, hash);
   return line;
 }
 

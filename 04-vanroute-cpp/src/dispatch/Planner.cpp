@@ -1,23 +1,11 @@
 #include "dispatch/Planner.hpp"
 
-#include <map>
-#include <utility>
-
 #include "dispatch/DispatchQueue.hpp"
 
 namespace vanroute {
 
 int Planner::travelMinutes(const std::string& from, const std::string& to) const {
-  // The same legs are looked up many times while planning a day, so remember them.
-  static std::map<std::pair<std::string, std::string>, int> cache;
-
-  const auto key = std::make_pair(from, to);
-  auto it = cache.find(key);
-  if (it != cache.end()) return it->second;
-
-  const int minutes = oracle_.minutes(from, to);
-  cache.emplace(key, minutes);
-  return minutes;
+  return oracle_.minutes(from, to);  // RoadNetworkOracle caches per source node
 }
 
 Plan Planner::plan(const std::vector<Van>& vans, const std::vector<Parcel>& parcels) const {
@@ -63,8 +51,8 @@ Plan Planner::plan(const std::vector<Van>& vans, const std::vector<Parcel>& parc
       }
 
       plan.load += parcel.size;
-      plan.stops.push_back({parcel.id, parcel.destination, arrival, arrival > parcel.deadline});
-      state.clock = arrival + serviceMinutes_;
+      plan.stops.push_back({parcel.id, parcel.destination, arrival, arrival >= parcel.deadline});
+      state.clock = arrival;
       state.position = parcel.destination;
       assigned = true;
     }

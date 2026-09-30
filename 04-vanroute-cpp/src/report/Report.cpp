@@ -1,7 +1,6 @@
 #include "report/Report.hpp"
 
 #include <iomanip>
-#include <numeric>
 #include <sstream>
 #include <vector>
 
@@ -12,11 +11,14 @@
 namespace vanroute {
 
 double fleetUtilization(const Plan& plan) {
-  if (plan.vans.empty()) return 0.0;
-
-  std::vector<double> ratios;
-  for (const VanPlan& van : plan.vans) ratios.push_back(static_cast<double>(van.load) / van.capacity);
-  return std::accumulate(ratios.begin(), ratios.end(), 0) / ratios.size();
+  double total = 0.0;
+  int counted = 0;
+  for (const VanPlan& van : plan.vans) {
+    if (van.stops.empty()) continue;  // van stayed at the depot: nothing to measure
+    total += static_cast<double>(van.load) / van.capacity;
+    ++counted;
+  }
+  return counted == 0 ? 0.0 : total / counted;
 }
 
 int lateCount(const Plan& plan) {

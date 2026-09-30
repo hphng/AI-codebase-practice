@@ -7,7 +7,10 @@
 
 namespace vanroute {
 
-// Hands out parcels in dispatch order: earliest deadline first; ties by parcel id (A to Z).
+// Hands out parcels in dispatch order (ops rule DSP-7):
+//   1. earliest deadline first;
+//   2. same deadline: larger parcels first, so bulky items get van space before small ones;
+//   3. same deadline and size: parcel id, A to Z.
 class DispatchQueue {
  public:
   void push(Parcel parcel) { heap_.push(std::move(parcel)); }
@@ -20,7 +23,8 @@ class DispatchQueue {
  private:
   struct DispatchOrder {
     bool operator()(const Parcel& a, const Parcel& b) const {
-      if (a.deadline != b.deadline) return a.deadline < b.deadline;
+      // priority_queue pops the "largest" element, so each rule is written as "a comes after b".
+      if (a.deadline != b.deadline) return a.deadline > b.deadline;
       return a.id > b.id;
     }
   };

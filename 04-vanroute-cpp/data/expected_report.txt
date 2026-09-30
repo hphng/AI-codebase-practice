@@ -1,16 +1,21 @@
-Van V1  load 6/6
-  08:26  P10   -> N07       LATE
-  08:50  P05   -> N02       LATE
-  09:12  P02   -> N08       LATE
-  09:28  P01   -> N04       LATE
-Van V2  load 3/4
+Van V1  load 9/9
+  08:05  P10   -> N01       
+  08:13  P05   -> N02       
+  08:35  P02   -> N08       
+  08:53  P11   -> N03       
+  09:00  P01   -> N04       
+Van V2  load 4/4
   08:18  P04   -> N06       
-  08:35  P03   -> N10       
+  08:26  P13   -> N05       
+Van V3  load 0/4
+  (no stops)
 
-Unassigned (3):
+Unassigned (5):
+  P12   no van can deliver before its shift ends
+  P03   no van can deliver before its shift ends
   P06   destination unreachable
-  P07   no van has capacity left
+  P07   no van can deliver before its shift ends
   P09   no van can deliver before its shift ends
 
-Late deliveries: 4
-Fleet utilization: 87.5%
+Late deliveries: 0
+Fleet utilization: 66.7%

@@ -3,7 +3,8 @@
 // Turns parsed CSV rows into domain objects. File formats (one record per line, '#' comments allowed):
 //   roads.csv    from,to,minutes                      (two-way road)
 //   vans.csv     id,depot,capacity,shiftStart,shiftEnd (times as HH:MM)
-//   parcels.csv  id,destination,size,deadline,status   (deadline HH:MM; status "ready" or "cancelled")
+//   parcels.csv  id,destination,size,deadline,status   (deadline HH:MM; status "ready" or "cancelled";
+//                                                      cancelled parcels are kept but never dispatched)
 
 #include <vector>
 
