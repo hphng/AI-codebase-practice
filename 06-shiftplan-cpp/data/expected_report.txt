@@ -1,0 +1,71 @@
+ShiftPlan outbound report
+Site: SEA8 night outbound, shift 22:00-06:00 (480 min)
+Crews: loader 2 sorter 3 unloader 2
+Jobs: 20, trucks: 5
+
+== Rush trucks (PRI-2) ==
+Rush trucks: T1, T2
+Boosted jobs (+100): L1, L2, S1, S2, U1, U2
+
+== Dispatch board ==
+1.  U2    unloader  priority 150
+2.  S2    sorter    priority 130
+3.  L2    loader    priority 130
+4.  U1    unloader  priority 110
+5.  S1    sorter    priority 120
+6.  L1    loader    priority 130
+7.  U3    unloader  priority 50
+8.  U4    unloader  priority 45
+9.  S3    sorter    priority 40
+10. S4    sorter    priority 40
+11. L3    loader    priority 35
+12. U5    unloader  priority 20
+13. S6    sorter    priority 20
+14. L5    loader    priority 25
+15. S5    sorter    priority 15
+16. L4    loader    priority 35
+17. D1    loader    priority 5
+18. Y1    unloader  priority 5
+19. C1    sorter    priority 1
+20. W1    loader    priority 0
+
+== Critical path (unlimited crews) ==
+U5 -> S6 -> L5 -> W1: all work done by 04:50
+
+== What-if: fully cross-trained crews ==
+If all 7 crews could do every job, all work would be done by 04:50
+
+== Crew timeline ==
+22:00-22:30  loader #1    D1
+22:00-23:30  sorter #1    C1
+22:00-22:40  unloader #1  U2
+22:00-23:00  unloader #2  U1
+22:40-23:10  sorter #2    S2
+22:40-23:40  unloader #1  U3
+23:00-23:40  sorter #3    S1
+23:00-00:00  unloader #2  U4
+23:10-23:30  loader #1    L2
+23:40-00:10  loader #1    L1
+23:40-00:30  sorter #1    S3
+23:40-01:10  unloader #1  U5
+00:00-00:45  sorter #2    S4
+00:00-01:00  sorter #3    S5
+00:00-00:30  unloader #2  Y1
+00:45-01:25  loader #1    L3
+01:00-01:50  loader #2    L4
+01:10-05:10  sorter #1    S6
+Carried over to the next shift: L5, W1
+
+== Departure board ==
+T1   cutoff 00:40  sealed 00:25  ON TIME
+T2   cutoff 23:50  sealed 23:45  ON TIME
+T3   cutoff 03:00  sealed 01:40  ON TIME
+T4   cutoff 04:30  sealed 02:05  ON TIME
+T5   cutoff 05:50  CARRIED OVER (L5 not run this shift)
+
+== Summary ==
+Jobs run this shift: 18 of 20
+Last job finishes:   05:10
+Trucks on time:      4 of 5
+Team utilization:    loader 17.7% sorter 38.5% unloader 35.4%
+Crew utilization:    31.7%

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit",
+      "Write",
+      "NotebookEdit",
+      "Bash",
+      "PowerShell",
+      "Agent",
+      "Read(//d/amazon/_answer_keys/**)",
+      "Read(../_answer_keys/**)",
+      "Read(~/.claude/skills/practice-ai-codebase/**)"
+    ],
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob"
+    ]
+  }
+}

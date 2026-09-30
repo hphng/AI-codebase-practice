@@ -12,6 +12,7 @@ Practice repositories for Amazon-style **AI-assisted coding OAs**: an unfamiliar
 | [`03-pickpath`](03-pickpath) | MERN | Warehouse picking: bins, pick lists, floor map | Pick-route planner (BFS on a grid) |
 | [`04-vanroute-cpp`](04-vanroute-cpp) | C++17, CMake | Delivery-van dispatch planner: CSV loaders, greedy planner, report | Travel times (weighted shortest paths) |
 | [`05-lockerhub-cpp`](05-lockerhub-cpp) | C++17, CMake | Hub Locker station (easy, feature-focused): locker engine, pickup windows, waitlist, station report | Locker engine in 4 progressive levels (ordered sets, min-heap expiry, per-size FIFO waitlist) |
+| [`06-shiftplan-cpp`](06-shiftplan-cpp) | C++17, CMake | Sort-center night-shift planner (hard, feature-focused): rush boost, departure board, crew metrics | Shift planner in 4 progressive levels (Kahn with a priority heap, DAG longest path, event-driven list scheduling with crew types and shift cutoff) |
 
 Each folder has its own README with the scenario, setup, tickets and a "done when" checklist. Start the restricted assistant by running `claude` **inside** a practice folder.
 
