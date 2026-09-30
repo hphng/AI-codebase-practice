@@ -3,7 +3,7 @@
 Practice repositories for Amazon-style **AI-assisted coding OAs**: an unfamiliar codebase, tests as the spec, and a restricted AI assistant (see each folder's `CLAUDE.md`). Every set has two parts:
 
 - **Part A:** implement an algorithm feature that is already wired into the app (stub + spec + tests, including a performance test).
-- **Part B:** fix 5 seeded bugs, roughly easy to hard.
+- **Part B:** fix seeded bugs (5 per set; 3 in feature-focused sets), roughly easy to hard.
 
 | Folder | Stack | Brief | Part A |
 |--------|-------|-------|--------|
@@ -11,6 +11,7 @@ Practice repositories for Amazon-style **AI-assisted coding OAs**: an unfamiliar
 | [`02-returns-cpp`](02-returns-cpp) | C++17, CMake | Return-policy engine: JSON parser, rule engine, CLI | Household detection (connected components) |
 | [`03-pickpath`](03-pickpath) | MERN | Warehouse picking: bins, pick lists, floor map | Pick-route planner (BFS on a grid) |
 | [`04-vanroute-cpp`](04-vanroute-cpp) | C++17, CMake | Delivery-van dispatch planner: CSV loaders, greedy planner, report | Travel times (weighted shortest paths) |
+| [`05-lockerhub-cpp`](05-lockerhub-cpp) | C++17, CMake | Hub Locker station (easy, feature-focused): locker engine, pickup windows, waitlist, station report | Locker engine in 4 progressive levels (ordered sets, min-heap expiry, per-size FIFO waitlist) |
 
 Each folder has its own README with the scenario, setup, tickets and a "done when" checklist. Start the restricted assistant by running `claude` **inside** a practice folder.
 

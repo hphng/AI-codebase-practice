@@ -1,0 +1,55 @@
+LockerHub station report
+Station: Capitol Hill Hub (HUB-SEA-14), 7 compartments, hold 48h
+
+== Activity ==
+D1 08:00  DEPOSIT P01 (S)   -> A01
+D1 08:05  DEPOSIT P02 (M)   -> B01
+D1 08:10  DEPOSIT P03 (S)   -> A02
+D1 08:15  DEPOSIT P04 (L)   -> C01
+D1 08:20  DEPOSIT P05 (S)   -> A03
+D1 08:25  DEPOSIT P06 (S)   -> B02
+D1 08:30  DEPOSIT P07 (M)   -> C02
+D1 08:35  DEPOSIT P08 (L)   -> no space, added to the waitlist
+D1 08:40  DEPOSIT P09 (S)   -> no space, added to the waitlist
+D1 08:45  DEPOSIT P03 (S)   -> refused, already at the station
+D1 09:30  PICKUP  P02       -> collected from B01
+D1 09:30  MOVE IN P09       -> B01 (from the waitlist)
+D1 10:00  PICKUP  P01       -> collected from A01
+D1 11:00  DEPOSIT P10 (S)   -> A01
+D1 12:00  PICKUP  P07       -> collected from C02
+D1 12:00  MOVE IN P08       -> C02 (from the waitlist)
+D1 17:00  PICKUP  P05       -> collected from A03
+D1 18:00  DEPOSIT P11 (M)   -> no space, added to the waitlist
+D1 19:00  PICKUP  P03       -> collected from A02
+D2 08:00  PICKUP  P06       -> collected from B02
+D2 08:00  MOVE IN P11       -> B02 (from the waitlist)
+D2 09:00  DEPOSIT P12 (S)   -> A02
+D2 12:00  PICKUP  P99       -> not in a locker
+D2 14:00  PICKUP  P10       -> collected from A01
+D2 20:00  DEPOSIT P13 (M)   -> no space, added to the waitlist
+D2 20:00  DEPOSIT P15 (S)   -> A01
+D3 09:00  RETURN  P04       -> not collected in time, back to carrier
+D3 09:00  MOVE IN P13       -> C01 (from the waitlist)
+D3 09:00  PICKUP  P04       -> not in a locker
+D3 10:00  RETURN  P09       -> not collected in time, back to carrier
+D3 10:00  DEPOSIT P14 (S)   -> A03
+D3 19:00  RETURN  P08       -> not collected in time, back to carrier
+D3 19:00  DEPOSIT P16 (L)   -> C02
+D3 19:05  DEPOSIT P17 (L)   -> no space, added to the waitlist
+D3 20:00  CLOSE
+
+== Lockers at close (D3 20:00) ==
+Empty compartments: S 0, M 1, L 0
+Waitlist: P17
+In a locker longest: P11 (since D2 08:00), P12 (since D2 09:00), P15 (since D2 20:00)
+
+== Summary ==
+Parcels received:   17
+Picked up:          7
+Returned to sender: 3
+Still in lockers:   6
+On the waitlist:    1
+Pickup rate:        70.0%
+Average dwell:      11h 00m
+Partner payout:     $3.55
+Reminders due:      P11, P12, P15
