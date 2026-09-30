@@ -25,11 +25,11 @@ RuleResult QuantityRule::evaluate(const EvalContext& ctx) const {
 }
 
 RuleResult ReturnWindowRule::evaluate(const EvalContext& ctx) const {
-  const int window = ctx.policy.windowDays + ctx.config.tierExtraDays(ctx.customer.tier);
+  const int window = ctx.config.defaults().windowDays + ctx.config.tierExtraDays(ctx.customer.tier);
   const auto elapsed = daysBetween(ctx.order.purchaseDate, ctx.request.requestDate);
 
   if (elapsed < 0) return RuleResult::deny("request is dated before the purchase");
-  if (elapsed >= window) {
+  if (elapsed > window) {
     return RuleResult::deny("outside the " + std::to_string(window) + "-day return window");
   }
   return RuleResult::pass();
@@ -45,7 +45,7 @@ RuleResult VelocityRule::evaluate(const EvalContext& ctx) const {
 }
 
 RuleResult RestockingFeeRule::evaluate(const EvalContext& ctx) const {
-  if (ctx.config.isFeeWaived(ctx.request.reason)) return RuleResult::pass();
+  if (ctx.request.reason == "defective") return RuleResult::pass();  // we never charge for our own faults
   const Cents gross = ctx.item.unitPrice * ctx.request.quantity;
   return RuleResult::charge(percentOf(gross, ctx.policy.restockingFeePercent));
 }

@@ -24,7 +24,7 @@ inline PolicyConfig standardConfig() {
     "tierExtraDays": { "prime": 15, "business": 30 },
     "feeWaivedReasons": ["defective", "wrong_item"],
     "finalSale": { "allowDefective": true },
-    "velocity": { "maxReturns": 3, "windowDays": 30 }
+    "velocity": { "maxReturns": 3, "windowDays": 10 }
   })"));
 }
 

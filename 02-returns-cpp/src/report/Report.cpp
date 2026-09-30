@@ -10,6 +10,15 @@
 
 namespace returns {
 
+Cents totalRefunded(const std::vector<Decision>& decisions) {
+  Cents total = 0;
+  for (const Decision& d : decisions) {
+    if (!d.approved) continue;
+    total += d.refund + d.restockingFee;  // full value of the returned goods
+  }
+  return total;
+}
+
 std::string runReport(const std::string& dataDir) {
   const auto path = [&dataDir](const char* file) { return dataDir + "/" + file; };
 
@@ -31,7 +40,7 @@ std::string runReport(const std::string& dataDir) {
       << "NOTES\n";
 
   int approved = 0;
-  Cents refunded = 0;
+  std::vector<Decision> decisions;
   for (const ReturnRequest& request : requests) {
     std::string itemName = request.sku;
     if (const Order* order = service.orders().find(request.orderId)) {
@@ -39,10 +48,8 @@ std::string runReport(const std::string& dataDir) {
     }
 
     const Decision d = service.submit(request);
-    if (d.approved) {
-      ++approved;
-      refunded += d.refund;
-    }
+    decisions.push_back(d);
+    if (d.approved) ++approved;
 
     out << std::setw(7) << request.id << std::setw(8) << request.orderId << std::setw(28) << itemName
         << std::setw(10) << (d.approved ? "APPROVED" : "DENIED")
@@ -57,7 +64,7 @@ std::string runReport(const std::string& dataDir) {
   }
 
   out << "\nSummary: " << approved << " approved, " << requests.size() - approved << " denied, "
-      << formatCents(refunded) << " refunded\n";
+      << formatCents(totalRefunded(decisions)) << " refunded\n";
   return out.str();
 }
 

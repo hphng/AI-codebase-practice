@@ -54,6 +54,12 @@ TEST(ReturnWindow, TierAddsExtraDays) {
   EXPECT_TRUE(f.runRule(ReturnWindowRule{}, request("R", "O-1", "TV", 1, "2024-02-16")).outcome == Outcome::Deny);
 }
 
+TEST(ReturnWindow, UsesTheCategoryWindow) {
+  Fixture f;  // apparel has a 60-day window, the default is 30
+  EXPECT_TRUE(f.runRule(ReturnWindowRule{}, request("R", "O-1", "SHIRT", 1, "2024-02-20")).outcome == Outcome::Pass);
+  EXPECT_TRUE(f.runRule(ReturnWindowRule{}, request("R", "O-1", "SHIRT", 1, "2024-03-02")).outcome == Outcome::Deny);
+}
+
 TEST(ReturnWindow, RejectsRequestBeforePurchase) {
   Fixture f;
   EXPECT_TRUE(f.runRule(ReturnWindowRule{}, request("R", "O-1", "TV", 1, "2023-12-31")).outcome == Outcome::Deny);
@@ -95,6 +101,14 @@ TEST(Engine, WaivesFeeForDefectiveItems) {
   ASSERT_TRUE(d.approved);
   EXPECT_EQ(d.restockingFee, 0);
   EXPECT_EQ(d.refund, 3998);
+}
+
+TEST(Engine, WaivesFeeForEveryConfiguredReason) {
+  Fixture f;  // standardConfig waives the fee for "defective" and "wrong_item"
+  const Decision d = f.run(request("R-1", "O-1", "TV", 1, "2024-01-10", "wrong_item"));
+  ASSERT_TRUE(d.approved);
+  EXPECT_EQ(d.restockingFee, 0);
+  EXPECT_EQ(d.refund, 1999);
 }
 
 TEST(Engine, NonReturnableCategoryIsDenied) {

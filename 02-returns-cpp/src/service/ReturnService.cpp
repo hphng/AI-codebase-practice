@@ -14,7 +14,8 @@ ReturnService::ReturnService(PolicyConfig config, OrderRepository orders, Custom
 
 Decision ReturnService::submit(ReturnRequest request) {
   Decision decision = decide(request);
-  if (decision.approved) applyReturn(request);
+  if (decision.approved) orders_.recordReturn(request.orderId, request.sku, request.quantity);
+  trackReturnActivity(request);
 
   notifyCustomer(request, decision);
   audit_.push_back(AuditEntry{std::move(request), decision});
@@ -36,8 +37,9 @@ Decision ReturnService::decide(const ReturnRequest& request) const {
   return engine_.evaluate(ctx);
 }
 
-void ReturnService::applyReturn(const ReturnRequest& request) {
-  orders_.recordReturn(request.orderId, request.sku, request.quantity);
+// Feeds the household's return-velocity counter.
+void ReturnService::trackReturnActivity(const ReturnRequest& request) {
+  // Count every return the household files, so repeat filers are spotted early.
   if (const Order* order = orders_.find(request.orderId)) {
     velocity_.record(householdOf(order->customerId), request.requestDate);
   }

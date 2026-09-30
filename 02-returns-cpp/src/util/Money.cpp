@@ -9,7 +9,7 @@ namespace returns {
 Cents percentOf(Cents amount, int percent) {
   if (amount < 0) throw std::invalid_argument("amount must be non-negative");
   if (percent < 0 || percent > 100) throw std::invalid_argument("percent must be in [0, 100]");
-  return amount * (percent / 100);
+  return (amount * percent + 50) / 100;
 }
 
 std::string formatCents(Cents amount) {

@@ -62,7 +62,7 @@ class Parser {
   }
 
   void skipWhitespace() {
-    while (!atEnd() && (text_[pos_] == ' ' || text_[pos_] == '\n')) ++pos_;
+    while (!atEnd() && (text_[pos_] == ' ' || text_[pos_] == '\n' || text_[pos_] == '\r' || text_[pos_] == '\t')) ++pos_;
   }
 
   static bool isDigit(char c) { return std::isdigit(static_cast<unsigned char>(c)) != 0; }

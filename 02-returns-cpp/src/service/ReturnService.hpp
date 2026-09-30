@@ -44,7 +44,7 @@ class ReturnService {
 
  private:
   Decision decide(const ReturnRequest& request) const;
-  void applyReturn(const ReturnRequest& request);
+  void trackReturnActivity(const ReturnRequest& request);
   void notifyCustomer(const ReturnRequest& request, const Decision& decision);
   const std::string& householdOf(const std::string& customerId) const;
 

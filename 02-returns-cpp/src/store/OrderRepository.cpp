@@ -20,7 +20,7 @@ bool OrderRepository::recordReturn(const std::string& orderId, const std::string
   auto it = orders_.find(orderId);
   if (it == orders_.end()) return false;
 
-  for (auto item : it->second.items) {
+  for (auto& item : it->second.items) {
     if (item.sku == sku) {
       item.returnedQuantity += quantity;
       return true;

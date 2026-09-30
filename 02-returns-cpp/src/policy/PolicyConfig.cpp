@@ -27,7 +27,7 @@ PolicyConfig PolicyConfig::fromJson(const json::Value& root) {
 
   if (root.has("categories")) {
     for (const auto& [name, value] : root["categories"].asObject()) {
-      config.categories_[toLower(name)] = parseCategory(value, config.defaults_);
+      config.categories_[toLower(name)] = parseCategory(value, CategoryPolicy{});
     }
   }
 

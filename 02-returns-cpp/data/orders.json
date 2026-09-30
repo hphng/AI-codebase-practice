@@ -9,7 +9,9 @@
     "id": "O-1001", "customerId": "C100", "purchaseDate": "2024-03-01",
     "items": [
       { "sku": "KB-01", "name": "Mechanical Keyboard",  "category": "Electronics", "unitPriceCents": 8999, "quantity": 1 },
-      { "sku": "CB-02", "name": "USB-C Cable (3-pack)", "category": "Electronics", "unitPriceCents": 1299, "quantity": 3 }
+      { "sku": "CB-02", "name": "USB-C Cable (3-pack)", "category": "Electronics", "unitPriceCents": 1299, "quantity": 3 },
+      { "sku": "MS-03", "name": "Wireless Mouse",       "category": "Electronics", "unitPriceCents": 2599, "quantity": 1 },
+      { "sku": "HD-04", "name": "USB Hub",              "category": "Electronics", "unitPriceCents": 3499, "quantity": 1 }
     ]
   },
   {

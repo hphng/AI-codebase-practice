@@ -14,5 +14,7 @@
   { "id": "R-13", "orderId": "O-1004", "sku": "TS-05", "quantity": 1, "requestDate": "2024-04-15", "reason": "defective" },
   { "id": "R-14", "orderId": "O-1005", "sku": "LP-01", "quantity": 1, "requestDate": "2024-03-10", "reason": "changed_mind" },
   { "id": "R-15", "orderId": "O-9999", "sku": "XX-00", "quantity": 1, "requestDate": "2024-03-10", "reason": "changed_mind" },
-  { "id": "R-16", "orderId": "O-1006", "sku": "PH-01", "quantity": 1, "requestDate": "2024-04-16", "reason": "defective" }
+  { "id": "R-16", "orderId": "O-1006", "sku": "PH-01", "quantity": 1, "requestDate": "2024-04-16", "reason": "defective" },
+  { "id": "R-17", "orderId": "O-1001", "sku": "MS-03", "quantity": 1, "requestDate": "2024-03-10", "reason": "damaged_in_transit" },
+  { "id": "R-18", "orderId": "O-1001", "sku": "HD-04", "quantity": 1, "requestDate": "2024-03-12", "reason": "defective" }
 ]

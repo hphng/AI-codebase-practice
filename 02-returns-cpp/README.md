@@ -18,7 +18,7 @@ It's a C++17 library with a small CLI and no third-party dependencies. Policies 
 You've just joined the team. Five tickets are open, and the fraud team needs the abuse limit to apply per household, because people keep opening extra accounts to get around it. There are two parts:
 
 - **Part A: build a feature.** Implement household detection for the return-abuse limit.
-- **Part B: fix 5 bugs.** Each ticket has **one root cause**. Some are not in the obvious policy logic.
+- **Part B: fix 5 bugs.** Each ticket has **one root cause**.
 
 ## Rules
 
@@ -50,11 +50,11 @@ The service already looks up each customer's household and counts returns per ho
 
 | ID | Area | Report |
 |----|------|--------|
-| RP-1 | Window | Customers returning on the **last day** of their window are refused. Agents are overriding by hand. |
-| RP-2 | Config | Since someone edited the data files on Windows, `returns-cli` won't start. |
-| RP-3 | Fees | Finance: restocking fees are never charged, so we refund the full price. Fees must be rounded to the nearest cent, half up. |
-| RP-4 | Over-returns | A customer returned the same cable more times than they bought it. |
-| RP-5 | Final sale | Final-sale items are being refunded. `FinalSaleRule` has its own unit test, and it passes. |
+| RP-1 | Return window | Apparel is supposed to have a 60-day return window, but José's rain jacket return (R-04, day 70, Prime) was refused as "outside the 45-day window". |
+| RP-2 | Policy | Ops raised the default restocking fee to 10% last week, but apparel returns are still refunded in full with no fee. |
+| RP-3 | Fees | A customer whose mouse arrived damaged in transit (R-17) was charged a restocking fee. Policy says damaged-in-transit and wrong-item returns are free. |
+| RP-4 | Finance | The "refunded" total at the bottom of the nightly report is higher than the sum of the refunds we actually paid out. |
+| RP-5 | Abuse limit | Ana Souza (C100) was blocked on R-18 for "too many returns", but only two of her returns that month were approved. The limit is about approved returns. |
 
 ## Architecture
 
@@ -76,7 +76,7 @@ data/        policies.json, customers.json, orders.json, requests.json, expected
 
 ## Done when
 
-- `.\build\unit_tests.exe` reports **69 tests, all passed**.
+- `.\build\unit_tests.exe` reports **74 tests, all passed**.
 - `.\build\returns-cli.exe data` prints the same report as `data/expected_report.txt`.
 
 Answer key (bugs + a reference solution for Part A): `../_answer_keys/02-returns-cpp.md.b64`. It's local only and base64-encoded so you can't spoil it by accident:

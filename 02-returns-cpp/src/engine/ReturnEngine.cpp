@@ -30,7 +30,7 @@ std::vector<std::unique_ptr<Rule>> makeDefaultRules(const PolicyConfig& config) 
 
   FinalSaleRule finalSale;
   finalSale.allowDefective = config.finalSaleAllowsDefective();
-  rules.push_back(std::make_unique<Rule>(finalSale));
+  rules.push_back(std::make_unique<FinalSaleRule>(finalSale));
 
   rules.push_back(std::make_unique<QuantityRule>());
   rules.push_back(std::make_unique<ReturnWindowRule>());

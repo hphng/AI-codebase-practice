@@ -92,7 +92,7 @@ TEST(Service, FinalSaleItemsAreNotRefunded) {
 }
 
 TEST(Service, VelocityLimitWithChronologicalBatch) {
-  World w;  // limit: 3 approved returns per 30 days
+  World w;  // limit: 3 approved returns per 10 days
   EXPECT_TRUE(w.service.submit(request("R-1", "O-2", "S1", 1, "2024-03-01", "defective")).approved);
   EXPECT_TRUE(w.service.submit(request("R-2", "O-2", "S2", 1, "2024-03-02", "defective")).approved);
   EXPECT_TRUE(w.service.submit(request("R-3", "O-2", "S3", 1, "2024-03-03", "defective")).approved);
@@ -101,11 +101,20 @@ TEST(Service, VelocityLimitWithChronologicalBatch) {
 
 TEST(Service, VelocityLimitWithReplayedBatch) {
   World w;
-  EXPECT_TRUE(w.service.submit(request("R-1", "O-2", "S1", 1, "2024-04-10", "defective")).approved);
-  EXPECT_TRUE(w.service.submit(request("R-2", "O-2", "S2", 1, "2024-04-11", "defective")).approved);
-  EXPECT_TRUE(w.service.submit(request("R-3", "O-2", "S3", 1, "2024-03-01", "defective")).approved);
-  EXPECT_TRUE(w.service.submit(request("R-4", "O-2", "S4", 1, "2024-04-12", "defective")).approved);
-  EXPECT_FALSE(w.service.submit(request("R-5", "O-2", "S5", 1, "2024-04-15", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-1", "O-2", "S1", 1, "2024-03-10", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-2", "O-2", "S2", 1, "2024-03-11", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-3", "O-2", "S3", 1, "2024-02-25", "defective")).approved);
+  EXPECT_TRUE(w.service.submit(request("R-4", "O-2", "S4", 1, "2024-03-12", "defective")).approved);
+  EXPECT_FALSE(w.service.submit(request("R-5", "O-2", "S5", 1, "2024-03-15", "defective")).approved);
+}
+
+TEST(Service, DeniedReturnsDontCountTowardsTheLimit) {
+  World w;  // limit: 3 approved returns per 10 days
+  EXPECT_FALSE(w.service.submit(request("R-1", "O-1", "CABLE", 9, "2024-03-02")).approved);  // more than bought
+  EXPECT_FALSE(w.service.submit(request("R-2", "O-1", "CABLE", 9, "2024-03-03")).approved);
+  EXPECT_FALSE(w.service.submit(request("R-3", "O-1", "CABLE", 9, "2024-03-04")).approved);
+  const Decision d = w.service.submit(request("R-4", "O-1", "COAT", 1, "2024-03-05"));
+  EXPECT_TRUE(d.approved);
 }
 
 TEST(Service, VelocityLimitAppliesToTheWholeHousehold) {
